@@ -1,18 +1,34 @@
 {
-  "name": "Jekyll",
-  "image": "mcr.microsoft.com/devcontainers/jekyll:2-bullseye",
+  "name": "Jekyll Portfolio",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+
   "onCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
-  "postCreateCommand": "bash .devcontainer/post-create.sh",
+
   "customizations": {
     "vscode": {
       "settings": {
-        "terminal.integrated.defaultProfile.linux": "zsh"
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "files.eol": "\n",
+        "editor.formatOnSave": true
       },
       "extensions": [
-        // Liquid tags auto-complete
-        "killalau.vscode-liquid-snippets",
-        // Liquid syntax highlighting and formatting
-        "Shopify.theme-check-vscode",
+        // Markdown tools & formatting
+        "yzhang.markdown-all-in-one",
+        "DavidAnson.vscode-markdownlint",
+        // YAML tools
+        "redhat.vscode-yaml",
+        // Liquid syntax highlighting
+        "sissel.shopify-liquid",
+        // Jekyll syntax highlighting & snippets
+        "ginfuru.ginfuru-vscode-jekyll-syntax",
+        // Code spell-checker
+        "streetsidesoftware.code-spell-checker",
         // Shell
         "timonwong.shellcheck",
         "mkhl.shfmt",
@@ -20,10 +36,27 @@
         "EditorConfig.EditorConfig",
         "esbenp.prettier-vscode",
         "stylelint.vscode-stylelint",
-        "yzhang.markdown-all-in-one",
         // Git
         "mhutchie.git-graph"
       ]
     }
-  }
+  },
+
+  "forwardPorts": [4000, 35729],
+  "portsAttributes": {
+    "4000": {
+      "label": "Jekyll Server",
+      "onAutoForward": "notify"
+    },
+    "35729": {
+      "label": "LiveReload",
+      "onAutoForward": "silent"
+    }
+  },
+
+  "postCreateCommand": [
+    "bundle install --path /workspaces/bansheecraft.github.io"
+  ],
+
+  "remoteUser": "vscode"
 }
