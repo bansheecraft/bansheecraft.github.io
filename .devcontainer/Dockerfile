@@ -10,7 +10,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 RUN gem install jekyll bundler
 
 # Set working directory
-WORKDIR /workspace
+WORKDIR /workspaces/bansheecraft.github.io
 
 # Expose Jekyll server port
 EXPOSE 4000 35729

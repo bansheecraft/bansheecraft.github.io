@@ -54,9 +54,7 @@
     }
   },
 
-  "postCreateCommand": [
-    "bundle install --path /workspaces/bansheecraft.github.io"
-  ],
+  "postCreateCommand": "bundle install",
 
   "remoteUser": "vscode"
 }
